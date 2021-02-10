@@ -1,0 +1,61 @@
+set nocompatible
+filetype off 
+
+call plug#begin()
+
+Plug 'christoomey/vim-system-copy'
+
+"Navigation Plugins
+Plug 'rbgrouleff/bclose.vim'
+Plug 'dbakker/vim-projectroot'
+Plug 'scrooloose/nerdtree'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'majutsushi/tagbar'
+
+"UI Plugins
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'bling/vim-bufferline'
+Plug 'altercation/vim-colors-solarized'
+
+"Editor plugins
+Plug 'Raimondi/delimitMate'
+Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-sleuth'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clangd-completer --go-completer --rust-completer --ts-completer' }
+Plug 'rdnetto/ycm-generator', { 'branch': 'stable' }
+"Plug 'SirVer/ultisnips'
+"Plug 'ludovicchabant/vim-gutentags'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'Chiel92/vim-autoformat'
+
+"Language specific
+Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
+Plug 'lervag/vimtex', { 'for': 'tex' }
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'yuezk/vim-js'
+Plug 'HerringtonDarkholme/yats.vim'
+"Plug 'leafgarland/typescript-vim'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'tikhomirov/vim-glsl'
+Plug 'vhdirk/vim-cmake'
+Plug 'ds26gte/scmindent'
+Plug 'udalov/kotlin-vim'
+
+if isdirectory("~/dev/mitscript-syntax")
+  Plug '~/dev/mitscript-syntax'
+endif
+
+"Note taking
+Plug 'vimwiki/vimwiki'
+Plug 'lukaszkorecki/workflowish'
+
+call plug#end()
+
+set encoding=utf-8
+"set clipboard+=unnamedplus
+set clipboard=nnamed
