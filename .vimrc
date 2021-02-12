@@ -3,7 +3,7 @@ filetype off
 
 call plug#begin()
 
-Plug 'christoomey/vim-system-copy'
+Plug 'preservim/nerdcommenter'
 
 "Navigation Plugins
 Plug 'rbgrouleff/bclose.vim'
@@ -66,7 +66,7 @@ set foldnestmax=1
 "------------------------------------------
 "---------------NERD Tree------------------
 " Start NERDTree and leave the cursor in it
-autocmd VimEnter * NERDTree
+"autocmd VimEnter * NERDTree
 " Exit Vim if NERDTree is the only window left.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |  quit | endif
 nnoremap <leader>n :NERDTreeFocus<CR>
@@ -75,3 +75,27 @@ nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
 "------------------------------------------
 
+syntax on
+filetype plugin indent on
+autocmd BufRead, BufNewFile *.sage,*.pyx,*spyx set filetype=python
+
+set backspace=indent,eol,start
+set softtabstop=4
+set shiftwidth=4
+set tabstop=4
+set expandtab
+set number
+set ruler
+set showcmd
+set mouse=a
+set undofile
+set title
+set nojoinspaces
+set autoread
+set updatetime=200
+
+
+"-----------------------MAKE-----------------------
+map <silent> <F4> <Esc>:w<CR>:!make<CR>
+map <silent> <F2> <Esc> :vsplit test<CR>
+map <silent> <F3> :vsplit solution.cpp<CR>
