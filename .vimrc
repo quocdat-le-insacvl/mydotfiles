@@ -4,6 +4,7 @@ filetype off
 call plug#begin()
 
 Plug 'preservim/nerdcommenter'
+Plug 'jiangmiao/auto-pairs'
 
 "Navigation Plugins
 Plug 'rbgrouleff/bclose.vim'
@@ -57,8 +58,6 @@ Plug 'lukaszkorecki/workflowish'
 call plug#end()
 
 set encoding=utf-8
-"set clipboard+=unnamedplus
-set clipboard=nnamed
 set number
 set foldmethod=syntax
 set foldnestmax=1
@@ -80,6 +79,7 @@ filetype plugin indent on
 autocmd BufRead, BufNewFile *.sage,*.pyx,*spyx set filetype=python
 
 set backspace=indent,eol,start
+set autoindent
 set softtabstop=4
 set shiftwidth=4
 set tabstop=4
@@ -97,5 +97,14 @@ set updatetime=200
 
 "-----------------------MAKE-----------------------
 map <silent> <F4> <Esc>:w<CR>:!make<CR>
-map <silent> <F2> <Esc> :vsplit test<CR>
+map <silent> <F2> <Esc> :vsplit testfile<CR>
 map <silent> <F3> :vsplit solution.cpp<CR>
+
+"-------COPY_CLIPBOARD----------------------------
+set clipboard=unnamedplus
+
+"------TURN OFF FLY MODE PAIR -----------
+let g:AutoPairsFlyMode=0 
+let g:AutoPairsWildClosedPair = ''
+let g:AutoPairsMultilineClose = 0
+let g:AutoPairsWildClosedPair = 0
