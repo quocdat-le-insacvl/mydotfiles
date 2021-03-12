@@ -47,10 +47,23 @@ bindsym $mod+Return exec mate-terminal
 bindsym $mod+Shift+g exec google-chrome-unstable
 
 # start hacker Rank
-bindsym $mod+Shift+h exec "mate-terminal --working-directory=./Coding/hackerRank"; exec "google-chrome-unstable https://www.hackerrank.com/ & "
+bindsym $mod+Shift+h exec "mate-terminal --working-directory=./Coding/hackerRank"; exec "google-chrome-unstable --new-window https://www.hackerrank.com/ & "
+
+# start CSES
+bindsym $mod+Shift+t exec "mate-terminal --working-directory=./Coding/CSES  "; exec "google-chrome-unstable --new-window https://cses.fi/problemset/ & "
+
+# start CodeChef
+bindsym $mod+Shift+f exec "mate-terminal --working-directory=./Coding/CodeChef  "; exec "google-chrome-unstable --new-window https://www.codechef.com/ "
 
 # start edt, partage
-bindsym $mod+Shift+s exec "google-chrome-unstable --new-window https://edt.insa-cvl.fr/etudiant?identifiant=CYEe4S2Fw4qUD9ce& "  ;  exec "google-chrome-unstable --new-window partage.insa-cvl.fr & "  ; 
+bindsym $mod+Shift+s exec "google-chrome-unstable --new-window https://edt.insa-cvl.fr/etudiant?identifiant=CYEe4S2Fw4qUD9ce& "  ;  exec "google-chrome-unstable --new-window https://partage.insa-cvl.fr/mail#1" ;
+
+# start Face + Inst + Gmail
+bindsym $mod+Shift+n exec "google-chrome-unstable --new-window  https://www.facebook.com/"; exec "google-chrome-unstable --new-window  https://www.instagram.com/"; exec "google-chrome-unstable --new-window  https://mail.google.com/mail/u/0/";
+
+# start project
+bindsym $mod+Shift+p exec "google-chrome-unstable --new-window https://github.com/quocdat-le-insacvl/CPygeon" ; exec "google-chrome-unstable --new-window https://app.diagrams.net/#Hquocdat-le-insacvl%2FCPygeon%2Fmaster%2FUntitled%20Diagram.drawio & "  ; exec "mate-terminal --working-directory=./Project/Reseaux"; 
+
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -190,4 +203,6 @@ bar {
         status_command i3status
 }
 
-exec xrandr --output Virtual-1 --mode 1680x1050
+exec xrandr --output Virtual-1 --mode 1920x1200
+exec mate-terminal
+exec google-chrome-unstable
