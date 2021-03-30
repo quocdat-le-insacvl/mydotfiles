@@ -62,7 +62,7 @@ bindsym $mod+Shift+s exec "google-chrome-unstable --new-window https://edt.insa-
 bindsym $mod+Shift+n exec "google-chrome-unstable --new-window  https://www.facebook.com/"; exec "google-chrome-unstable --new-window  https://www.instagram.com/"; exec "google-chrome-unstable --new-window  https://mail.google.com/mail/u/0/";
 
 # start project
-bindsym $mod+Shift+p exec "google-chrome-unstable --new-window https://github.com/quocdat-le-insacvl/CPygeon" ; exec "google-chrome-unstable --new-window https://app.diagrams.net/#Hquocdat-le-insacvl%2FCPygeon%2Fmaster%2FUntitled%20Diagram.drawio & "  ; exec "mate-terminal --working-directory=./Project/Reseaux"; 
+bindsym $mod+Shift+p exec "google-chrome-unstable --new-window https://gitlab.insa-cvl.fr/ctoinard/groupe3a-huynh/" ; exec "google-chrome-unstable --new-window https://app.diagrams.net"  ; exec "mate-terminal --working-directory=./Project/Project_Master"; 
 
 
 # kill focused window
