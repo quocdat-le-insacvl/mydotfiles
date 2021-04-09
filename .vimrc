@@ -1,10 +1,13 @@
 set nocompatible
-filetype off 
+"filetype off
+filetype plugin on
 
 call plug#begin()
 
 Plug 'preservim/nerdcommenter'
+Plug 'StanAngeloff/php.vim'
 Plug 'jiangmiao/auto-pairs'
+Plug 'scrooloose/syntastic'
 
 "Navigation Plugins
 Plug 'rbgrouleff/bclose.vim'
@@ -62,17 +65,6 @@ set number
 set foldmethod=syntax
 set foldnestmax=1
 
-"------------------------------------------
-"---------------NERD Tree------------------
-" Start NERDTree and leave the cursor in it
-"autocmd VimEnter * NERDTree
-" Exit Vim if NERDTree is the only window left.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |  quit | endif
-nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
-"------------------------------------------
 
 syntax on
 filetype plugin indent on
@@ -108,3 +100,16 @@ let g:AutoPairsFlyMode=0
 let g:AutoPairsWildClosedPair = ''
 let g:AutoPairsMultilineClose = 0
 let g:AutoPairsWildClosedPair = 0
+
+
+"------------------------------------------
+"---------------NERD Tree------------------
+" Start NERDTree and leave the cursor in it
+"autocmd VimEnter * NERDTree
+" Exit Vim if NERDTree is the only window left.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |  quit | endif
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTree<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
+"------------------------------------------
