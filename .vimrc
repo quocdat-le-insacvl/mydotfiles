@@ -4,6 +4,7 @@ filetype plugin on
 
 call plug#begin()
 
+Plug 'justinmk/vim-syntax-extra'
 Plug 'preservim/nerdcommenter'
 Plug 'StanAngeloff/php.vim'
 Plug 'jiangmiao/auto-pairs'
