@@ -4,6 +4,15 @@ filetype plugin on
 
 call plug#begin()
 
+" Web development
+Plug 'mattn/emmet-vim'  
+" https://raw.githubusercontent.com/mattn/emmet-vim/master/TUTORIAL
+Plug 'yuezk/vim-js'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'dense-analysis/ale'
+Plug 'alvan/vim-closetag'
+
+Plug 'APZelos/blamer.nvim'
 Plug 'justinmk/vim-syntax-extra'
 Plug 'preservim/nerdcommenter'
 Plug 'StanAngeloff/php.vim'
@@ -92,6 +101,8 @@ set updatetime=200
 map <silent> <F4> <Esc>:w<CR>:!make<CR>
 map <silent> <F2> <Esc> :vsplit testfile<CR>
 map <silent> <F3> :vsplit solution.cpp<CR>
+map <silent> <F5> <Esc>:w<CR>:!clear<CR>:!python3 main.py<CR>
+
 
 "-------COPY_CLIPBOARD----------------------------
 set clipboard=unnamedplus
@@ -114,3 +125,62 @@ nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
 "------------------------------------------
+
+"--- Enable git blamer
+"let g:blamer_enabled = 1
+"
+ 
+" web 
+" filenames like *.xml, *.html, *.xhtml, ...
+" These are the file extensions where this plugin is enabled.
+"
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
+
+" filenames like *.xml, *.xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+"
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
+
+" filetypes like xml, html, xhtml, ...
+" These are the file types where this plugin is enabled.
+"
+let g:closetag_filetypes = 'html,xhtml,phtml'
+
+" filetypes like xml, xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+"
+let g:closetag_xhtml_filetypes = 'xhtml,jsx'
+
+" integer value [0|1]
+" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
+"
+let g:closetag_emptyTags_caseSensitive = 1
+
+" dict
+" Disables auto-close if not in a "valid" region (based on filetype)
+"
+let g:closetag_regions = {
+    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+    \ 'javascript.jsx': 'jsxRegion',
+    \ 'typescriptreact': 'jsxRegion,tsxRegion',
+    \ 'javascriptreact': 'jsxRegion',
+    \ }
+
+" Shortcut for closing tags, default is '>'
+"
+let g:closetag_shortcut = '>'
+
+" Add > at current position without closing the current tag, default is ''
+"
+let g:closetag_close_shortcut = '<leader>>'
+
+  
+  
+"Emmet
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
+
+"Disable autopairs for html file
+au Filetype html let b:autopairs_enabled = 0
+au Filetype html let b:AutoPairs={'<':'<'}
+

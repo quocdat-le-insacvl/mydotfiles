@@ -9,6 +9,8 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
+# customize workspace names
+
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -37,6 +39,7 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -44,25 +47,26 @@ floating_modifier $mod
 bindsym $mod+Return exec mate-terminal
 
 # start google-chrome
-bindsym $mod+Shift+g exec google-chrome-unstable
+bindsym $mod+Shift+g exec firefox
 
 # start hacker Rank
-bindsym $mod+Shift+h exec "mate-terminal --working-directory=./Coding/hackerRank"; exec "google-chrome-unstable --new-window https://www.hackerrank.com/ & "
+bindsym $mod+Shift+h exec "mate-terminal --working-directory=./Coding/hackerRank"; exec "firefox --new-window https://www.hackerrank.com/ & "
 
 # start CSES
-bindsym $mod+Shift+t exec "mate-terminal --working-directory=./Coding/CSES  "; exec "google-chrome-unstable --new-window https://cses.fi/problemset/ & "
+bindsym $mod+Shift+t exec "mate-terminal --working-directory=./Coding/CSES  "; exec "firefox --new-window https://cses.fi/problemset/ & "
 
 # start CodeChef
-bindsym $mod+Shift+f exec "mate-terminal --working-directory=./Coding/CodeChef  "; exec "google-chrome-unstable --new-window https://www.codechef.com/ "
+bindsym $mod+Shift+f exec "mate-terminal --working-directory=./Coding/CodeChef  "; exec "firefox --new-window https://www.codechef.com/ "
 
 # start edt, partage
-bindsym $mod+Shift+s exec "google-chrome-unstable --new-window https://edt.insa-cvl.fr/etudiant?identifiant=CYEe4S2Fw4qUD9ce& "  ;  exec "google-chrome-unstable --new-window https://partage.insa-cvl.fr/mail#1" ;
+#bindsym $mod+Shift+s exec "firefox --new-window https://edt.insa-cvl.fr/etudiant?identifiant=CYEe4S2Fw4qUD9ce& "  ;  exec "firefox --new-window https://partage.insa-cvl.fr/mail#1" ;
+bindsym $mod+Shift+s exec "deepin-screenshot -qwindowgeometry"
 
 # start Face + Inst + Gmail
-bindsym $mod+Shift+n exec "google-chrome-unstable --new-window  https://www.facebook.com/"; exec "google-chrome-unstable --new-window  https://www.instagram.com/"; exec "google-chrome-unstable --new-window  https://mail.google.com/mail/u/0/";
+bindsym $mod+Shift+n exec "firefox --new-window  https://www.facebook.com/"; exec "firefox --new-window  https://www.instagram.com/"; exec "firefox --new-window  https://mail.google.com/mail/u/0/";
 
 # start project
-bindsym $mod+Shift+p exec "google-chrome-unstable --new-window https://gitlab.insa-cvl.fr/ctoinard/groupe3a-huynh/" ; exec "google-chrome-unstable --new-window https://app.diagrams.net"  ; exec "mate-terminal --working-directory=./Project/Project_Master"; 
+bindsym $mod+Shift+p exec "mate-terminal --working-directory=./FinalProjet/groupe3a-huynh/ --command 'python3 main.py < ~/tmp/1.txt'"; exec "mate-terminal --working-directory=./FinalProjet/groupe3a-huynh/ -e 'python3 main.py '";exec "mate-terminal --working-directory=./FinalProjet/groupe3a-huynh/ -e 'python3 main.py '";
 
 
 # kill focused window
@@ -128,40 +132,44 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+set $ws1 "1:Calendar"
+set $ws2 "2:Email"
+set $ws3 "3:Compilation"
+set $ws4 "4:Theory of code"
+set $ws5 "5:SHS"
+set $ws6 "6:Project"
+set $ws7 "7:English"
+set $ws8 "8:Coursera"
+set $ws9 "9:Personnal Project"
+set $ws10 "10:Coding Hobby"
 
 # switch to workspace
-bindsym $mod+1 workspace number $ws1
-bindsym $mod+2 workspace number $ws2
-bindsym $mod+3 workspace number $ws3
-bindsym $mod+4 workspace number $ws4
-bindsym $mod+5 workspace number $ws5
-bindsym $mod+6 workspace number $ws6
-bindsym $mod+7 workspace number $ws7
-bindsym $mod+8 workspace number $ws8
-bindsym $mod+9 workspace number $ws9
-bindsym $mod+0 workspace number $ws10
+bindsym $mod+1 workspace $ws1 
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace number $ws1
-bindsym $mod+Shift+2 move container to workspace number $ws2
-bindsym $mod+Shift+3 move container to workspace number $ws3
-bindsym $mod+Shift+4 move container to workspace number $ws4
-bindsym $mod+Shift+5 move container to workspace number $ws5
-bindsym $mod+Shift+6 move container to workspace number $ws6
-bindsym $mod+Shift+7 move container to workspace number $ws7
-bindsym $mod+Shift+8 move container to workspace number $ws8
-bindsym $mod+Shift+9 move container to workspace number $ws9
-bindsym $mod+Shift+0 move container to workspace number $ws10
+bindsym $mod+Shift+1 move container to workspace $ws1 
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# force a window on a named workspace
+#assign [class="Calendar"] 1 Calendar
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -205,7 +213,7 @@ bar {
 
 exec xrandr --output Virtual-1 --mode 1920x1200
 #exec mate-terminal
-#exec google-chrome-unstable
+#exec microsoft-edge-dev
 
 bindsym $mod+Ctrl+Right resize shrink width 1 px or 1 ppt
 bindsym $mod+Ctrl+Up resize grow height 1 px or 1 ppt
