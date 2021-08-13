@@ -1,0 +1,173 @@
+systemctl enable lightdm.service
+# In /etc/lightdm/lightdm.conf
+
+###################################
+#[Seat:*]
+#...
+#greeter-session=lightdm-gtk-greeter
+#...
+####################################
+
+# autostart systemd default session on tty1
+# Add this to /etc/profile
+if [[ "$(tty)" == '/dev/tty1' ]]; then
+    exec startx
+fi
+
+# Start i3
+# Optional
+# Copy content from /etc/.xinitrc to ~/.xinitrc
+# Add this line:
+exec i3
+
+# File manager 
+pacman -S pcmanfm gvfs xarchiver # xarchiver - to be able to extract using right click
+
+# Theme manager and themes(icons)
+pacman -Sy lxappearance
+pacman -Sy arc-gtk-theme
+
+git clone https://aur.archlinux.org/papirus-icon-theme-git.git
+cd papirus-icon-theme-git
+makepkg -sric
+
+# Background image
+pacman -Sy feh
+feh --bg-scale /path/to/img
+# or in ~/.config/i3/config
+exec --no-startup-id feh --bg-scale /path/to/img
+# use exec_always if you want to run the command each time you restart i3. 
+# exec will only run once.
+
+# Transparent terminal
+pacman -Sy urxvt-unicode urxvt-perls
+pacman -Sy compton # this does the transparency
+# Add in ~/.config/i3/config
+exec--no-startup-id compton -b
+
+# Power manager + lock screen
+pacman -Sy xfce-power-manager light-locker
+# Add in ~/.config/i3/config
+exec --no-startup-id xfce4-power-manager
+exec --no-startup-id light-locker
+
+# Brightness manager
+git clone https://aur.archlinux.org/light-git.git
+cd light-git
+makepkg -sric
+# Add in ~/.config/i3/config
+bindsym XF86MonBrightnessUp exec --no-startup-id light -A 5 # increase screen brightness
+bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5 # decrease screen brightness
+# When the brightness is 0 or 100 the screen will go black on some pcs, if you raised the brightness decrease it to recover.
+
+# Notify manager
+# Or this https://github.com/sboli/twmn
+pacman -Sy notify-osd
+# or
+# More customizable : https://github.com/dunst-project/dunst
+pacman -Sy dunst
+# Change the config
+mkdir ~/.config/dunst
+cp /usr/share/dunst/dunstrc ~/.config/dunst/dunstrc
+# Test it
+notify-send "Hi! This is a test"
+# A notification should appear in the right corner
+
+####
+# Control + grave : C-` : Show history of notifications
+# Control + Space : Close notification
+# Control + Shift + period : Opens the link from the notification in broswer
+
+########################################## Utils ################################################################
+pacman -S git bash-completion tk # tk is used by gitk
+
+# File editor
+pacman -S gedit vim gedit-plugins
+
+# Install skype
+git clone https://aur.archlinux.org/skypeforlinux-stable-bin.git
+# or the latest version
+git clone https://aur.archlinux.org/skypeforlinux-preview-bin.git
+cd skypeforlinux-stable-bin/
+makepkg -sric
+
+# qtcreator
+pacman -S qtcreator
+
+# Docker
+pacman -Sy docker
+#enable docker at startup
+sudo systemctl enable docker
+sudo systemctl start docker
+# add user to group docker
+gpasswd -a user docker
+# Reboot to work
+docker run --rm=true hello-world
+
+# xhost
+pacman -Sy xorg-xhost
+# Used when you want to forward X server
+# Eg: xhost +
+
+# SSH
+sudo pacman -Sy openssh
+sudo systemctl enable sshd
+sudo systemctl start sshd
+
+# X2goServer + Client
+sudo pacman -Sy x2goserver x2goclient
+#Create db for x2go
+sudo x2godbadmin --createdb
+# Start service
+sudo systemctl enable x2goserver.service
+sudo systemctl start x2goserver.service
+# In x2go client select `custom desktop` and add this `/usr/bin/i3/`
+
+# Install conan C++
+# Install pip: https://pip.pypa.io/en/stable/installing/
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python get-pip.py --user # if you only want it installed on this user
+# Add ~/.local/bin to $PATH
+# In ~/.bashrc add:
+PATH=$PATH:~/.local/bin
+export PATH
+# Install conan:
+pip install conan --user
+conan --version
+
+# Install tmux
+pacman -Sy tmux
+
+# Install xrandr
+# To modify the resolution of the monitors
+pacman -Sy xorg-xrandr
+
+# Libre office
+pacman -Sy libreoffice-fresh
+
+# Torrent client
+pacman -Sy transmission-gtk
+
+# Printer
+pacman -S cups
+systemctl enable org.cups.cupsd.service
+systemctl start org.cups.cupsd.service
+pacman -S system-config-printer
+gpasswd -a chreniuc cups
+# After this run system-config-printer and add the printer
+
+# Image viewer
+git clone https://aur.archlinux.org/mirage.git
+cd mirage
+makepkg -sric
+
+# Fluxgui
+git clone https://aur.archlinux.org/fluxgui.git
+cd fluxgui
+makepkg -sric
+
+# Notes sticker
+git clone  https://aur.archlinux.org/qtpad-git.git
+cd qtpad-git
+makepkg -sric
+# run qtpad
