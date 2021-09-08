@@ -187,3 +187,6 @@ autocmd FileType html,css EmmetInstall
 au Filetype html let b:autopairs_enabled = 0
 au Filetype html let b:AutoPairs={'<':'<'}
 
+syntax enable
+set background=light
+colorscheme solarized
