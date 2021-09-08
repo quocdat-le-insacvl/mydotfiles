@@ -3,6 +3,9 @@ set nocompatible
 filetype plugin on
 
 call plug#begin()
+" Debugger 
+Plugin 'szw/vim-maximizer'
+Plugin 'puremourning/vimspector'
 
 " Web development
 Plug 'mattn/emmet-vim'  
