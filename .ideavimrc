@@ -1,0 +1,42 @@
+"let mapleader=" "
+set commentary
+set ideajoin
+set ideamarks
+set idearefactormode=keep
+
+
+"" Source your .vimrc
+"source ~/.vimrc
+
+"" -- Suggested options --
+" Show a few lines of context around the cursor. Note that this makes the
+" text scroll if you mouse-click near the start or end of the window.
+set scrolloff=5
+
+Plug 'preservim/nerdcommenter'
+
+" Do incremental searching.
+set incsearch
+
+" Don't use Ex mode, use Q for formatting.
+map Q gq
+
+
+"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
+"" Map \r to the Reformat Code action
+map == <Action>(ReformatCode)
+
+"" Map \cc with Comment with Line Comment
+"map \c <Action>(Comment with Line Comment)
+map <leader>cc <Action>(CommentByLineComment)
+
+map <leader>L <Action>(CMake.LoadCMakeProject)
+"" Map <leader>d to start debug
+"map <leader>c <Action>(Debug)
+
+"" Map \b to toggle the breakpoint on the current line
+"map \b <Action>(ToggleLineBreakpoint)
+
+:set relativenumber
+
+" Find more examples here: https://jb.gg/share-ideavimrc
