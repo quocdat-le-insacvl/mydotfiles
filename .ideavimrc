@@ -3,6 +3,8 @@ set commentary
 set ideajoin
 set ideamarks
 set idearefactormode=keep
+set autoindent
+set hlsearch            "highlights searched objects"
 
 
 "" Source your .vimrc
@@ -40,3 +42,5 @@ map <leader>L <Action>(CMake.LoadCMakeProject)
 :set relativenumber
 
 " Find more examples here: https://jb.gg/share-ideavimrc
+
+set clipboard+=unnamed
