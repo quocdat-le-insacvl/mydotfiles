@@ -4,8 +4,8 @@ filetype plugin on
 
 call plug#begin()
 " Debugger 
-Plugin 'szw/vim-maximizer'
-Plugin 'puremourning/vimspector'
+Plug 'szw/vim-maximizer'
+Plug 'puremourning/vimspector'
 
 " Web development
 Plug 'mattn/emmet-vim'  
