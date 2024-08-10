@@ -1,192 +1,180 @@
-set nocompatible
-"filetype off
-filetype plugin on
+" Basic Vim settings
+set nocompatible              " Use Vim defaults instead of 100% vi compatibility
+set mouse=a                   " Enable mouse support in all modes
+set encoding=utf-8            " Use UTF-8 encoding
+set number relativenumber     " Show line numbers (absolute for current line, relative for others)
+set ruler showcmd             " Show cursor position and partial command in status line
+set incsearch                 " Show match for partly typed search command
+set shellslash                " Use forward slashes in file names; required for Windows
+set autoindent smartindent    " Enable auto and smart indenting
+set expandtab tabstop=4 shiftwidth=4 softtabstop=4  " Use spaces instead of tabs, with 4 spaces per tab
+set foldmethod=syntax foldnestmax=1  " Enable syntax folding with a maximum of one nested fold
+set backspace=indent,eol,start  " Allow backspacing over autoindent, line breaks, and start of insert
+set cino+=L0                  " Align C++ scope declarations to the left
+set belloff=all               " Turn off all error bells
+set clipboard=unnamedplus     " Use the system clipboard for all operations
+set undofile                  " Maintain undo history between sessions
+set title                     " Set the window's title, reflecting the file currently being edited
+set nojoinspaces              " Use only one space after '.' when joining lines
+set autoread                  " Automatically read file when it has been changed outside of Vim
+set updatetime=200            " Reduce update time for faster response (default is 4000ms)
 
+" Plugin Management
 call plug#begin()
-" Debugger 
-Plug 'szw/vim-maximizer'
-Plug 'puremourning/vimspector'
+" UI Plugins
+Plug 'vim-airline/vim-airline'        " Enhanced status/tabline
+Plug 'vim-airline/vim-airline-themes' " Themes for vim-airline
+Plug 'bling/vim-bufferline'           " Show list of buffers in the command bar
+Plug 'altercation/vim-colors-solarized'  " Solarized color scheme
 
-" Web development
-Plug 'mattn/emmet-vim'  
-" https://raw.githubusercontent.com/mattn/emmet-vim/master/TUTORIAL
-Plug 'yuezk/vim-js'
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'dense-analysis/ale'
-Plug 'alvan/vim-closetag'
+" Editor Plugins
+Plug 'tpope/vim-dispatch'             " Asynchronous build and test dispatcher
+Plug 'szw/vim-maximizer'              " Maximizes and restores current window
+Plug 'puremourning/vimspector'        " Multi-language debugger
+Plug 'APZelos/blamer.nvim'            " Git blame plugin
+Plug 'preservim/nerdcommenter'        " Easy code commenting
+Plug 'jiangmiao/auto-pairs'           " Insert or delete brackets, parens, quotes in pair
+Plug 'scrooloose/syntastic'           " Syntax checking plugin
+Plug 'Raimondi/delimitMate'           " Auto-completion for quotes, parens, brackets
+Plug 'tpope/vim-sleuth'               " Automatically adjusts 'shiftwidth' and 'expandtab'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clangd-completer --go-completer --rust-completer --ts-completer' }  " Code-completion engine
+Plug 'rdnetto/ycm-generator', { 'branch': 'stable' }  " Generates config files for YouCompleteMe
+Plug 'tpope/vim-fugitive'             " Git wrapper
+Plug 'airblade/vim-gitgutter'         " Shows git diff in the sign column
+Plug 'editorconfig/editorconfig-vim'  " EditorConfig plugin for Vim
+Plug 'Chiel92/vim-autoformat'         " Easy code formatting
 
-Plug 'APZelos/blamer.nvim'
-Plug 'justinmk/vim-syntax-extra'
-Plug 'preservim/nerdcommenter'
-Plug 'StanAngeloff/php.vim'
-Plug 'jiangmiao/auto-pairs'
-Plug 'scrooloose/syntastic'
+" Navigation Plugins
+Plug 'rbgrouleff/bclose.vim'          " Delete buffer without closing window
+Plug 'dbakker/vim-projectroot'        " Set working directory to project root
+Plug 'scrooloose/nerdtree'            " File system explorer
+Plug 'junegunn/fzf'                   " Fuzzy finder
+Plug 'junegunn/fzf.vim'               " Fuzzy finder Vim integration
+Plug 'majutsushi/tagbar'              " Displays tags in a window
 
-"Navigation Plugins
-Plug 'rbgrouleff/bclose.vim'
-Plug 'dbakker/vim-projectroot'
-Plug 'scrooloose/nerdtree'
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'majutsushi/tagbar'
+" Language Specific Plugins
+Plug 'lervag/vimtex'                  " LaTeX support
+Plug 'octol/vim-cpp-enhanced-highlight'  " Enhanced C++ syntax highlighting
+Plug 'mattn/emmet-vim'                " HTML and CSS high-speed coding
+Plug 'yuezk/vim-js'                   " JavaScript syntax highlighting and indentation
+Plug 'maxmellon/vim-jsx-pretty'       " React JSX syntax highlighting and indenting
+Plug 'dense-analysis/ale'             " Asynchronous Lint Engine
+Plug 'alvan/vim-closetag'             " Auto close HTML tags
+Plug 'StanAngeloff/php.vim'           " Up-to-date PHP syntax file
+Plug 'tmhedberg/SimpylFold', { 'for': 'python' }  " Python code folding
+Plug 'vim-pandoc/vim-pandoc'          " Pandoc integration
+Plug 'vim-pandoc/vim-pandoc-syntax'   " Pandoc syntax
+Plug 'HerringtonDarkholme/yats.vim'   " TypeScript syntax
+Plug 'tikhomirov/vim-glsl'            " OpenGL Shading Language syntax highlighting
+Plug 'vhdirk/vim-cmake'               " CMake support
+Plug 'ds26gte/scmindent'              " Scheme indentation
+Plug 'udalov/kotlin-vim'              " Kotlin support
 
-"UI Plugins
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'bling/vim-bufferline'
-Plug 'altercation/vim-colors-solarized'
+" Note Taking
+Plug 'vimwiki/vimwiki'                " Personal wiki for Vim
+Plug 'lukaszkorecki/workflowish'      " Minimal outliner
 
-"Editor plugins
-Plug 'Raimondi/delimitMate'
-Plug 'scrooloose/nerdcommenter'
-Plug 'tpope/vim-sleuth'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clangd-completer --go-completer --rust-completer --ts-completer' }
-Plug 'rdnetto/ycm-generator', { 'branch': 'stable' }
-"Plug 'SirVer/ultisnips'
-"Plug 'ludovicchabant/vim-gutentags'
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'Chiel92/vim-autoformat'
-
-"Language specific
-Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
-Plug 'lervag/vimtex', { 'for': 'tex' }
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'yuezk/vim-js'
-Plug 'HerringtonDarkholme/yats.vim'
-"Plug 'leafgarland/typescript-vim'
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'tikhomirov/vim-glsl'
-Plug 'vhdirk/vim-cmake'
-Plug 'ds26gte/scmindent'
-Plug 'udalov/kotlin-vim'
-
+" Custom Plugin (conditional)
 if isdirectory("~/dev/mitscript-syntax")
-  Plug '~/dev/mitscript-syntax'
+  Plug '~/dev/mitscript-syntax'       " Custom syntax plugin (if directory exists)
 endif
-
-"Note taking
-Plug 'vimwiki/vimwiki'
-Plug 'lukaszkorecki/workflowish'
 
 call plug#end()
 
-set encoding=utf-8
-set number
-set foldmethod=syntax
-set foldnestmax=1
+" Theme Settings
+let g:solarized_termcolors=256        " Use 256 colors for Solarized theme
+set background=light                  " Use light background
+colorscheme solarized                 " Set color scheme to Solarized
 
+" Syntax and Filetype Settings
+syntax on                             " Enable syntax highlighting
+filetype plugin indent on             " Enable filetype detection, plugins, and indentation
+autocmd BufRead,BufNewFile *.sage,*.pyx,*.spyx set filetype=python  " Set filetype for specific extensions
 
-syntax on
-filetype plugin indent on
-autocmd BufRead, BufNewFile *.sage,*.pyx,*spyx set filetype=python
+" Key Mappings
+inoremap {<CR>  {<CR>}<Esc>O          " Auto-complete curly braces and put cursor inside
+inoremap {}     {}                    " Auto-complete empty curly braces
+imap jk         <Esc>                 " Map 'jk' to Escape in insert mode
+map <C-a> <esc>ggVG<CR>               " Map Ctrl+A to select all text
+map <C-c> y                           " Copy to clipboard
 
-set backspace=indent,eol,start
-set autoindent
-set softtabstop=4
-set shiftwidth=4
-set tabstop=4
-set expandtab
-set number
-set ruler
-set showcmd
-set mouse=a
-set undofile
-set title
-set nojoinspaces
-set autoread
-set updatetime=200
+" Function Key Mappings
+map <silent> <F2> <Esc> :vsplit testfile<CR>  " Open testfile in vertical split
+map <silent> <F3> :vsplit solution.cpp<CR>    " Open solution.cpp in vertical split
+map <silent> <F5> <Esc>:w<CR>:!clear<CR>:!python3 main.py<CR>  " Save and run Python script
+autocmd filetype cpp nnoremap <F9> :w <bar> Make <CR>  " Save and compile C++ file
+autocmd filetype cpp nnoremap <F10> :vertical terminal ++shell ++cols=40 ./%:r<CR>  " Run compiled C++ program
+autocmd filetype cpp nnoremap <F11> :w <bar> !~/scripts/run_expander.sh % <Enter><bar> :tabe combined.cpp<CR>  " Run custom script and open result
 
+" C++ Specific Settings
+set makeprg=g++\ -static\ -DDEBUG\ -lm\ -s\ -x\ c++\ -Wall\ -Wextra\ -O2\ -std=c++17\ -I\ ~/mycp/ac-library\ -o\ %:r\ %  " Set make program for C++
+autocmd BufNewFile *.cpp 0r /home/jayleeds/vimcp/Library/Template.cpp  " Load template for new C++ files
 
-"-----------------------MAKE-----------------------
-map <silent> <F4> <Esc>:w<CR>:!make<CR>
-map <silent> <F2> <Esc> :vsplit testfile<CR>
-map <silent> <F3> :vsplit solution.cpp<CR>
-map <silent> <F5> <Esc>:w<CR>:!clear<CR>:!python3 main.py<CR>
+" LaTeX Settings
+autocmd FileType tex :NoMatchParen    " Disable parenthesis matching for LaTeX files
+autocmd FileType tex :set tw=110      " Set text width to 110 for LaTeX files
 
+" Plugin-specific Settings
+" VimTeX
+let g:vimtex_view_general_viewer = 'SumatraPDF'  " Set PDF viewer for VimTeX
+let g:vimtex_view_general_options = '-reuse-instance @pdf'  " Options for PDF viewer
+let g:vimtex_view_general_options_latexmk = '-reuse-instance'  " Options for latexmk
+let g:tex_flavor = 'latex'            " Set default TeX flavor to LaTeX
+let g:vimtex_motion_matchparen = 0    " Disable matchparen for VimTeX
+let g:vimtex_fold_manual = 1          " Enable manual folding for VimTeX
+let g:vimtex_matchparen_enabled = 0   " Disable matchparen for VimTeX
 
-"-------COPY_CLIPBOARD----------------------------
-set clipboard=unnamedplus
+" AutoPairs
+let g:AutoPairsFlyMode = 0            " Disable fly mode for AutoPairs
+let g:AutoPairsWildClosedPair = ''    " Disable wild closed pair
+let g:AutoPairsMultilineClose = 0     " Disable multiline close
 
-"------TURN OFF FLY MODE PAIR -----------
-let g:AutoPairsFlyMode=0 
-let g:AutoPairsWildClosedPair = ''
-let g:AutoPairsMultilineClose = 0
-let g:AutoPairsWildClosedPair = 0
-
-
-"------------------------------------------
-"---------------NERD Tree------------------
-" Start NERDTree and leave the cursor in it
-"autocmd VimEnter * NERDTree
-" Exit Vim if NERDTree is the only window left.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |  quit | endif
-nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
-"------------------------------------------
-
-"--- Enable git blamer
-"let g:blamer_enabled = 1
-"
- 
-" web 
-" filenames like *.xml, *.html, *.xhtml, ...
-" These are the file extensions where this plugin is enabled.
-"
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
-
-" filenames like *.xml, *.xhtml, ...
-" This will make the list of non-closing tags self-closing in the specified files.
-"
-let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
-
-" filetypes like xml, html, xhtml, ...
-" These are the file types where this plugin is enabled.
-"
-let g:closetag_filetypes = 'html,xhtml,phtml'
-
-" filetypes like xml, xhtml, ...
-" This will make the list of non-closing tags self-closing in the specified files.
-"
-let g:closetag_xhtml_filetypes = 'xhtml,jsx'
-
-" integer value [0|1]
-" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
-"
-let g:closetag_emptyTags_caseSensitive = 1
-
-" dict
-" Disables auto-close if not in a "valid" region (based on filetype)
-"
+" Closetag
+let g:closetag_emptyTags_caseSensitive = 1  " Make empty tags case-sensitive
 let g:closetag_regions = {
     \ 'typescript.tsx': 'jsxRegion,tsxRegion',
     \ 'javascript.jsx': 'jsxRegion',
     \ 'typescriptreact': 'jsxRegion,tsxRegion',
     \ 'javascriptreact': 'jsxRegion',
-    \ }
+    \ }                               " Set regions for Closetag plugin
+let g:closetag_shortcut = '>'         " Set shortcut for closing tags
+let g:closetag_close_shortcut = '<leader>>'  " Set shortcut for closing tags with leader key
 
-" Shortcut for closing tags, default is '>'
-"
-let g:closetag_shortcut = '>'
+" NERDTree
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |  quit | endif  " Close Vim if NERDTree is the only window left
+nnoremap <leader>n :NERDTreeFocus<CR>  " Focus NERDTree
+nnoremap <C-n> :NERDTree<CR>           " Open NERDTree
+nnoremap <C-t> :NERDTreeToggle<CR>     " Toggle NERDTree
+nnoremap <C-f> :NERDTreeFind<CR>       " Find current file in NERDTree
 
-" Add > at current position without closing the current tag, default is ''
-"
-let g:closetag_close_shortcut = '<leader>>'
+" NERD Commenter
+let g:NERDSpaceDelims = 1             " Add spaces after comment delimiters by default
+let g:NERDTrimTrailingWhitespace = 1  " Enable trimming of trailing whitespace when uncommenting
+let g:NERDCommentEmptyLines = 1       " Allow commenting and inverting empty lines
+let g:NERDToggleCheckAllLines = 1     " Enable NERDCommenterToggle to check all selected lines is commented or not
+" Map Ctrl+/ to comment/uncomment
+nmap <C-_> <Plug>NERDCommenterToggle  
+" Map Ctrl+/ to comment/uncomment in visual mode
+vmap <C-_> <Plug>NERDCommenterToggle<CR>gv  
 
-  
-  
-"Emmet
-let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
+" Clipboard Configuration for WSL
+let s:clip = '/mnt/c/Windows/System32/clip.exe'
+if executable(s:clip)
+    augroup WSLYank
+        autocmd!
+        autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+    augroup END
+endif
 
-"Disable autopairs for html file
-au Filetype html let b:autopairs_enabled = 0
-au Filetype html let b:AutoPairs={'<':'<'}
+" Terminal Cursor Settings
+if &term =~ "xterm\\|rxvt"
+  " Set cursor color to orange in insert mode
+  let &t_SI = "\<Esc>]12;orange\x7"   
+  " Set cursor color to red in normal mode
+  let &t_EI = "\<Esc>]12;red\x7"      
+  " Set initial cursor color to red
+  silent !echo -ne "\033]12;red\007"  
+  " Reset cursor color on exit
+  autocmd VimLeave * silent !echo -ne "\033]112\007"  
+endif
 
-syntax enable
-set background=light
-colorscheme solarized
