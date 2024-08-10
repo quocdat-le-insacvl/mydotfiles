@@ -7,7 +7,7 @@ set ruler showcmd             " Show cursor position and partial command in stat
 set incsearch                 " Show match for partly typed search command
 set shellslash                " Use forward slashes in file names; required for Windows
 set autoindent smartindent    " Enable auto and smart indenting
-set expandtab tabstop=4 shiftwidth=4 softtabstop=4  " Use spaces instead of tabs, with 4 spaces per tab
+set expandtab tabstop=2 shiftwidth=2 softtabstop=2     " Use spaces instead of tabs, with 2 spaces per tab
 set foldmethod=syntax foldnestmax=1  " Enable syntax folding with a maximum of one nested fold
 set backspace=indent,eol,start  " Allow backspacing over autoindent, line breaks, and start of insert
 set cino+=L0                  " Align C++ scope declarations to the left
@@ -24,60 +24,31 @@ call plug#begin()
 " UI Plugins
 Plug 'vim-airline/vim-airline'        " Enhanced status/tabline
 Plug 'vim-airline/vim-airline-themes' " Themes for vim-airline
-Plug 'bling/vim-bufferline'           " Show list of buffers in the command bar
 Plug 'altercation/vim-colors-solarized'  " Solarized color scheme
 
 " Editor Plugins
 Plug 'tpope/vim-dispatch'             " Asynchronous build and test dispatcher
-Plug 'szw/vim-maximizer'              " Maximizes and restores current window
-Plug 'puremourning/vimspector'        " Multi-language debugger
-Plug 'APZelos/blamer.nvim'            " Git blame plugin
 Plug 'preservim/nerdcommenter'        " Easy code commenting
 Plug 'jiangmiao/auto-pairs'           " Insert or delete brackets, parens, quotes in pair
-Plug 'scrooloose/syntastic'           " Syntax checking plugin
-Plug 'Raimondi/delimitMate'           " Auto-completion for quotes, parens, brackets
 Plug 'tpope/vim-sleuth'               " Automatically adjusts 'shiftwidth' and 'expandtab'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clangd-completer --go-completer --rust-completer --ts-completer' }  " Code-completion engine
 Plug 'rdnetto/ycm-generator', { 'branch': 'stable' }  " Generates config files for YouCompleteMe
 Plug 'tpope/vim-fugitive'             " Git wrapper
 Plug 'airblade/vim-gitgutter'         " Shows git diff in the sign column
 Plug 'editorconfig/editorconfig-vim'  " EditorConfig plugin for Vim
-Plug 'Chiel92/vim-autoformat'         " Easy code formatting
 
 " Navigation Plugins
-Plug 'rbgrouleff/bclose.vim'          " Delete buffer without closing window
-Plug 'dbakker/vim-projectroot'        " Set working directory to project root
 Plug 'scrooloose/nerdtree'            " File system explorer
 Plug 'junegunn/fzf'                   " Fuzzy finder
 Plug 'junegunn/fzf.vim'               " Fuzzy finder Vim integration
-Plug 'majutsushi/tagbar'              " Displays tags in a window
 
 " Language Specific Plugins
-Plug 'lervag/vimtex'                  " LaTeX support
 Plug 'octol/vim-cpp-enhanced-highlight'  " Enhanced C++ syntax highlighting
-Plug 'mattn/emmet-vim'                " HTML and CSS high-speed coding
-Plug 'yuezk/vim-js'                   " JavaScript syntax highlighting and indentation
-Plug 'maxmellon/vim-jsx-pretty'       " React JSX syntax highlighting and indenting
 Plug 'dense-analysis/ale'             " Asynchronous Lint Engine
-Plug 'alvan/vim-closetag'             " Auto close HTML tags
-Plug 'StanAngeloff/php.vim'           " Up-to-date PHP syntax file
 Plug 'tmhedberg/SimpylFold', { 'for': 'python' }  " Python code folding
-Plug 'vim-pandoc/vim-pandoc'          " Pandoc integration
-Plug 'vim-pandoc/vim-pandoc-syntax'   " Pandoc syntax
-Plug 'HerringtonDarkholme/yats.vim'   " TypeScript syntax
-Plug 'tikhomirov/vim-glsl'            " OpenGL Shading Language syntax highlighting
-Plug 'vhdirk/vim-cmake'               " CMake support
-Plug 'ds26gte/scmindent'              " Scheme indentation
-Plug 'udalov/kotlin-vim'              " Kotlin support
 
 " Note Taking
 Plug 'vimwiki/vimwiki'                " Personal wiki for Vim
-Plug 'lukaszkorecki/workflowish'      " Minimal outliner
-
-" Custom Plugin (conditional)
-if isdirectory("~/dev/mitscript-syntax")
-  Plug '~/dev/mitscript-syntax'       " Custom syntax plugin (if directory exists)
-endif
 
 call plug#end()
 
@@ -92,38 +63,48 @@ filetype plugin indent on             " Enable filetype detection, plugins, and 
 autocmd BufRead,BufNewFile *.sage,*.pyx,*.spyx set filetype=python  " Set filetype for specific extensions
 
 " Key Mappings
-inoremap {<CR>  {<CR>}<Esc>O          " Auto-complete curly braces and put cursor inside
-inoremap {}     {}                    " Auto-complete empty curly braces
-imap jk         <Esc>                 " Map 'jk' to Escape in insert mode
-map <C-a> <esc>ggVG<CR>               " Map Ctrl+A to select all text
-map <C-c> y                           " Copy to clipboard
+" Auto-complete curly braces and put cursor inside
+inoremap {<CR>  {<CR>}<Esc>O
+" Auto-complete empty curly braces
+inoremap {}     {}
+" Map 'jk' to Escape in insert mode
+imap jk         <Esc>
+" Map Ctrl+A to select all text
+map <C-a> <esc>ggVG<CR>
+" Copy to clipboard
+map <C-c> y                           
+set belloff=all
 
 " Function Key Mappings
-map <silent> <F2> <Esc> :vsplit testfile<CR>  " Open testfile in vertical split
-map <silent> <F3> :vsplit solution.cpp<CR>    " Open solution.cpp in vertical split
-map <silent> <F5> <Esc>:w<CR>:!clear<CR>:!python3 main.py<CR>  " Save and run Python script
-autocmd filetype cpp nnoremap <F9> :w <bar> Make <CR>  " Save and compile C++ file
-autocmd filetype cpp nnoremap <F10> :vertical terminal ++shell ++cols=40 ./%:r<CR>  " Run compiled C++ program
-autocmd filetype cpp nnoremap <F11> :w <bar> !~/scripts/run_expander.sh % <Enter><bar> :tabe combined.cpp<CR>  " Run custom script and open result
+" Open testfile in vertical split
+map <silent> <F2> <Esc> :vsplit testfile<CR>  
+" Open solution.cpp in vertical split
+map <silent> <F3> :vsplit solution.cpp<CR>    
+" Save and run Python script
+map <silent> <F5> <Esc>:w<CR>:!clear<CR>:!python3 main.py<CR>  
+" Save and compile C++ file
+autocmd filetype cpp nnoremap <F9> :w <bar> Make <CR>  
+" Run compiled C++ program
+autocmd filetype cpp nnoremap <F10> :vertical terminal ++shell ++cols=40 ./%:r<CR>  
+" Run custom script and open result
+autocmd filetype cpp nnoremap <F11> :w <bar> !~/scripts/run_expander.sh % <Enter><bar> :tabe combined.cpp<CR>  
 
 " C++ Specific Settings
-set makeprg=g++\ -static\ -DDEBUG\ -lm\ -s\ -x\ c++\ -Wall\ -Wextra\ -O2\ -std=c++17\ -I\ ~/mycp/ac-library\ -o\ %:r\ %  " Set make program for C++
-autocmd BufNewFile *.cpp 0r /home/jayleeds/vimcp/Library/Template.cpp  " Load template for new C++ files
+" Set make program for C++
+set makeprg=g++\ -static\ -DDEBUG\ -lm\ -s\ -x\ c++\ -Wall\ -Wextra\ -O2\ -std=c++17\ -I\ ~/mycp/ac-library\ -o\ %:r\ %  
+
+" Load template for new C++ files
+"autocmd BufNewFile *.cpp 0r /home/jayleeds/vimcp/Library/Template.cpp  
 
 " LaTeX Settings
-autocmd FileType tex :NoMatchParen    " Disable parenthesis matching for LaTeX files
-autocmd FileType tex :set tw=110      " Set text width to 110 for LaTeX files
+
+" Disable parenthesis matching for LaTeX files
+autocmd FileType tex :NoMatchParen    
+
+" Set text width to 110 for LaTeX files
+autocmd FileType tex :set tw=110      
 
 " Plugin-specific Settings
-" VimTeX
-let g:vimtex_view_general_viewer = 'SumatraPDF'  " Set PDF viewer for VimTeX
-let g:vimtex_view_general_options = '-reuse-instance @pdf'  " Options for PDF viewer
-let g:vimtex_view_general_options_latexmk = '-reuse-instance'  " Options for latexmk
-let g:tex_flavor = 'latex'            " Set default TeX flavor to LaTeX
-let g:vimtex_motion_matchparen = 0    " Disable matchparen for VimTeX
-let g:vimtex_fold_manual = 1          " Enable manual folding for VimTeX
-let g:vimtex_matchparen_enabled = 0   " Disable matchparen for VimTeX
-
 " AutoPairs
 let g:AutoPairsFlyMode = 0            " Disable fly mode for AutoPairs
 let g:AutoPairsWildClosedPair = ''    " Disable wild closed pair
