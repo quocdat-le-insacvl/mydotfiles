@@ -53,43 +53,6 @@ Plug 'vimwiki/vimwiki'                " Personal wiki for Vim
 call plug#end()
 
 
-" Theme Settings
-let g:solarized_termcolors=256        " Use 256 colors for Solarized theme
-
-" Function to set theme and save preference
-function! SetTheme(mode)
-    if a:mode == 'day'
-        set background=light
-    elseif a:mode == 'night'
-        set background=dark
-    endif
-    colorscheme solarized
-    call writefile([a:mode], expand('~/.vim_theme'))
-endfunction
-
-" Function to load saved theme
-function! LoadSavedTheme()
-    let l:saved_theme = expand('~/.vim_theme')
-    if filereadable(l:saved_theme)
-        let l:mode = readfile(l:saved_theme)[0]
-        call SetTheme(l:mode)
-    else
-        " Default to 'day' if no saved theme
-        call SetTheme('day')
-    endif
-endfunction
-
-" Load saved theme on Vim startup
-augroup ThemeLoader
-    autocmd!
-    autocmd VimEnter * call LoadSavedTheme()
-augroup END
-
-" Commands to manually switch themes (now in lowercase)
-command! Day call SetTheme('day')
-command! Night call SetTheme('night')
-
-
 " Syntax and Filetype Settings
 syntax on                             " Enable syntax highlighting
 filetype plugin indent on             " Enable filetype detection, plugins, and indentation
@@ -100,7 +63,7 @@ autocmd BufRead,BufNewFile *.sage,*.pyx,*.spyx set filetype=python  " Set filety
 " Auto-complete curly braces and put cursor inside
 inoremap {<CR>  {<CR>}<Esc>O
 " Auto-complete empty curly braces
-inoremap {}     {}
+inoremap {}     {}K:
 " Map 'jk' to Escape in insert mode
 imap jk         <Esc>
 " Map Ctrl+A to select all text
@@ -192,3 +155,39 @@ if &term =~ "xterm\\|rxvt"
   autocmd VimLeave * silent !echo -ne "\033]112\007"  
 endif
 
+
+" Theme Settings
+let g:solarized_termcolors=256        " Use 256 colors for Solarized theme
+
+" Function to set theme and save preference
+function! SetTheme(mode)
+    if a:mode == 'day'
+        set background=light
+    elseif a:mode == 'night'
+        set background=dark
+    endif
+    colorscheme solarized
+    call writefile([a:mode], expand('~/.vim_theme'))
+endfunction
+
+" Function to load saved theme
+function! LoadSavedTheme()
+    let l:saved_theme = expand('~/.vim_theme')
+    if filereadable(l:saved_theme)
+        let l:mode = readfile(l:saved_theme)[0]
+        call SetTheme(l:mode)
+    else
+        " Default to 'day' if no saved theme
+        call SetTheme('day')
+    endif
+endfunction
+
+" Load saved theme on Vim startup
+augroup ThemeLoader
+    autocmd!
+    autocmd VimEnter * call LoadSavedTheme()
+augroup END
+
+" Commands to manually switch themes (now in lowercase)
+command! Day call SetTheme('day')
+command! Night call SetTheme('night')
