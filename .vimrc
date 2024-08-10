@@ -52,15 +52,49 @@ Plug 'vimwiki/vimwiki'                " Personal wiki for Vim
 
 call plug#end()
 
+
 " Theme Settings
 let g:solarized_termcolors=256        " Use 256 colors for Solarized theme
-set background=light                  " Use light background
-colorscheme solarized                 " Set color scheme to Solarized
+
+" Function to set theme and save preference
+function! SetTheme(mode)
+    if a:mode == 'day'
+        set background=light
+    elseif a:mode == 'night'
+        set background=dark
+    endif
+    colorscheme solarized
+    call writefile([a:mode], expand('~/.vim_theme'))
+endfunction
+
+" Function to load saved theme
+function! LoadSavedTheme()
+    let l:saved_theme = expand('~/.vim_theme')
+    if filereadable(l:saved_theme)
+        let l:mode = readfile(l:saved_theme)[0]
+        call SetTheme(l:mode)
+    else
+        " Default to 'day' if no saved theme
+        call SetTheme('day')
+    endif
+endfunction
+
+" Load saved theme on Vim startup
+augroup ThemeLoader
+    autocmd!
+    autocmd VimEnter * call LoadSavedTheme()
+augroup END
+
+" Commands to manually switch themes (now in lowercase)
+command! Day call SetTheme('day')
+command! Night call SetTheme('night')
+
 
 " Syntax and Filetype Settings
 syntax on                             " Enable syntax highlighting
 filetype plugin indent on             " Enable filetype detection, plugins, and indentation
 autocmd BufRead,BufNewFile *.sage,*.pyx,*.spyx set filetype=python  " Set filetype for specific extensions
+
 
 " Key Mappings
 " Auto-complete curly braces and put cursor inside
@@ -73,7 +107,6 @@ imap jk         <Esc>
 map <C-a> <esc>ggVG<CR>
 " Copy to clipboard
 map <C-c> y                           
-set belloff=all
 
 " Function Key Mappings
 " Open testfile in vertical split
